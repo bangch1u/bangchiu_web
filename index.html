@@ -18,75 +18,121 @@
             background-color: aqua;
         }
 
-        .mau {
-            background-color: red;
+        h1 {
+            color: red;
         }
 
-        .mau2 {
-            background-color: green;
+        #title_kq {
+            color: black;
         }
+        #info{
+            border: 1px solid black;
+            border-collapse: collapse;
+            width: 500px;
+        }
+        th{
+            background-color: #0077cc;
+			color: #ffffff;
+			font-weight: bold;
+			padding: 8px;
+			vertical-align: top;
+            border: 1px solid black;
+            
+        }
+        #body{
+           			
+			font-weight: bold;
+			padding: 8px;
+			vertical-align: top;
+            border: 1px solid black;           
+        }
+       
     </style>
 </head>
 
 <body>
-    <h1>Thông tin giao hàng</h1>
+    <h1>Đăng kí môn học</h1>
+
     <table id="tb_nhap">
         <tr>
-            <td>Mã khách hàng: </td>
-            <td><input type="text" id="mkh"></td>
+            <td>Mã sinh viên: </td>
+            <td><input type="text" id="msv" placeholder="Bắt đầu (ph) và có 7 kí tự"></td>
         </tr>
         <tr>
-            <td>Tên giao hàng: </td>
-            <td><input type="text" id="tenkh"></td>
-        </tr>
-
-        <tr>
-            <td>Địa điểm giao hàng</td>
-            <td>
-                <select id="diaDiem" name="diaDiem">
-                    <option value="noiThanh">Nội Thành</option>
-                    <option value="ngoaiThanh">Ngoại Thành</option>
-                </select>
-            </td>
+            <td>Môn đăng kí: </td>
+            <td><input type="text" id="monDK" placeholder="Bắt đầu (web) và có 7 kí tự"></td>
         </tr>
         <tr>
-            <td>Giá tiền: </td>
-            <td id="hello"><input type="text" id="money"></td>
+            <td>Email: </td>
+            <td><input type="text" id="email" placeholder="....@fpt.edu.vn"></td>
         </tr>
-
         <tr>
             <td></td>
-            <td><button onclick="checkDauVao()">Đặt hàng</button></td>
+            <td><button onclick="checksv()">Đăng kí</button></td>
         </tr>
     </table>
+    <h1 id="title_kq">
+        Danh sách sinh viên đã đăng ký
+    </h1>
+
+
+    <table id="info" >
+        <thead>
+            <tr>
+                <th>Tên</th>
+                <th>Email</th>
+                <th>Số điện thoại</th>
+            </tr>
+        </thead>
+        <tbody id="body">
+        </tbody>
+    </table>
+
     <script>
 
-        function checkDauVao() {
-            var makh = document.getElementById("mkh").value;
-            var tenKh = document.getElementById("tenkh").value;
-            var regex = /^KH\d{3}$/;
-            if (!regex.test(makh.toUpperCase())) {
-                alert("Mã khách hàng không hợp lệ || không được bỏ trống");
+        function checksv() {
+            var maSV = document.getElementById("msv").value;
+            var mon = document.getElementById("monDK").value;
+            var Email = document.getElementById("email").value;
+            var regex = /^PH\d{5}$/;
+            if (maSV.length !== 7 || !regex.test(maSV.toUpperCase())) {
+                alert("Mã sinh viên không hợp lệ!");
                 return;
             }
-            var regex2 = /^[a-z A-Z]+$/
-            if (!regex2.test(tenKh.toUpperCase())) {
-                alert("Tên khách hàng không được bỏ trống");
+            if (mon.toUpperCase().substring(0, 3) !== "WEB" || maSV.length !== 7) {
+                alert("Mã môn học không hợp lệ!");
+                return;
+            }
+            var isEmail = "@FPT.EDU.VN"
+            if (Email.toUpperCase().substring(Email.length - 11) !== isEmail) {
+                alert("Email không hợp lệ!");
                 return;
             }
             alert("hợp lệ")
-            var giaTien = document.getElementById("money")
-            const diaDiem = document.getElementById('diaDiem').value;
-            if (diaDiem == 'noiThanh') {
-                giaTien.value = 0;
-            } else if (diaDiem == 'ngoaiThanh') {
-                giaTien.value = 20000;
-            }
+            var table = document.getElementById("info").getElementsByTagName("tbody")[0];
+            var newRow = table.insertRow();//chèn thêm dòng
 
+            // Thêm các ô vào hàng mới
+            var nameCell = newRow.insertCell(0);
+            var emailCell = newRow.insertCell(1);
+            var phoneCell = newRow.insertCell(2); //"insertCell" là phương thức của HTML Table Element  được sử dụng để chèn một ô (cell) mới vào trong một hàng (row) 
+            nameCell.innerHTML = maSV;
+            emailCell.innerHTML = mon;
+            phoneCell.innerHTML = Email;
+            //ph11111
+            //web1111
+            //ban@fpt.edu.vn
+            document.getElementById("msv").value="";
+            document.getElementById("monDK").value="";
+            document.getElementById("email").value="";
         }
 
 
+
     </script>
+
+
+
 </body>
 
 </html>
