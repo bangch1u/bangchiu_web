@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+
+            width: 500px;
+            height: 500px;
+            padding: 0px;
+        }
+
+        #tb_nhap {
+            background-color: aqua;
+        }
+
+        .mau {
+            background-color: red;
+        }
+
+        .mau2 {
+            background-color: green;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Thông tin giao hàng</h1>
+    <table id="tb_nhap">
+        <tr>
+            <td>Mã khách hàng: </td>
+            <td><input type="text" id="mkh"></td>
+        </tr>
+        <tr>
+            <td>Tên giao hàng: </td>
+            <td><input type="text" id="tenkh"></td>
+        </tr>
+
+        <tr>
+            <td>Địa điểm giao hàng</td>
+            <td>
+                <select id="diaDiem" name="diaDiem">
+                    <option value="noiThanh">Nội Thành</option>
+                    <option value="ngoaiThanh">Ngoại Thành</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Giá tiền: </td>
+            <td id="hello"><input type="text" id="money"></td>
+        </tr>
+
+        <tr>
+            <td></td>
+            <td><button onclick="checkDauVao()">Đặt hàng</button></td>
+        </tr>
+    </table>
+    <script>
+
+        function checkDauVao() {
+            var makh = document.getElementById("mkh").value;
+            var tenKh = document.getElementById("tenkh").value;
+            var regex = /^KH\d{3}$/;
+            if (!regex.test(makh.toUpperCase())) {
+                alert("Mã khách hàng không hợp lệ || không được bỏ trống");
+                return;
+            }
+            var regex2 = /^[a-z A-Z]+$/
+            if (!regex2.test(tenKh.toUpperCase())) {
+                alert("Tên khách hàng không được bỏ trống");
+                return;
+            }
+            alert("hợp lệ")
+            var giaTien = document.getElementById("money")
+            const diaDiem = document.getElementById('diaDiem').value;
+            if (diaDiem == 'noiThanh') {
+                giaTien.value = 0;
+            } else if (diaDiem == 'ngoaiThanh') {
+                giaTien.value = 20000;
+            }
+
+        }
+
+
+    </script>
+</body>
+
+</html>
